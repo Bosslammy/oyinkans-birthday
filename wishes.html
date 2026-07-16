@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leave a Wish — Oyinkansola</title>
+<meta name="description" content="Leave a birthday wish for Oyinkansola, with a photo if you'd like.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">Oyinkansola Yusuf</a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="wishes.html" class="active">Wishes</a></li>
+        <li><a href="gallery.html">Pictures &amp; Videos</a></li>
+        <li><a href="gifts.html">Gifts</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" aria-label="Menu">&#9776;</button>
+  </div>
+</header>
+
+<section style="padding-bottom:60px;">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">Wishes</span>
+      <h2>Say it, so she can keep it</h2>
+      <p>Write a message for Oyinkansola's birthday. You're welcome to attach a photo of the two of you — it'll appear on the wall below right away.</p>
+    </div>
+
+    <form class="wish-form reveal" id="wish-form">
+      <div class="field">
+        <label for="wish-name">Your Name</label>
+        <input type="text" id="wish-name" required>
+      </div>
+      <div class="field">
+        <label for="wish-message">Your Wish</label>
+        <textarea id="wish-message" required placeholder="Write your birthday message for Oyinkansola..."></textarea>
+      </div>
+      <div class="field">
+        <label>Photo (optional)</label>
+        <div class="field-file">
+          <span id="wish-photo-filename">No file chosen</span><br>
+          <input type="file" id="wish-photo-input" accept="image/*">
+        </div>
+      </div>
+      <button type="submit" class="btn btn-solid" style="width:100%; justify-content:center;">Send My Wish</button>
+    </form>
+
+    <p class="center" style="margin-top:18px; font-size:0.85rem; color:var(--plum-soft);" id="wish-status"></p>
+  </div>
+</section>
+
+<section class="bg-deep">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">The Wall</span>
+      <h2>Wishes already shared</h2>
+      <p>Every message left for her, newest first.</p>
+    </div>
+
+    <div class="wishes-wall reveal" id="wishes-wall">
+      <p class="center" style="grid-column:1/-1; color:var(--plum-soft);">Loading wishes…</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <span class="brand">Oyinkansola Yusuf</span>
+    <ul class="footer-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="wishes.html">Wishes</a></li>
+      <li><a href="gallery.html">Pictures &amp; Videos</a></li>
+      <li><a href="gifts.html">Gifts</a></li>
+    </ul>
+    <p>Made with love, for the 31st of July.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+<script src="js/wishes.js"></script>
+</body>
+</html>

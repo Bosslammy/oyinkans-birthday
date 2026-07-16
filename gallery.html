@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pictures &amp; Videos — Oyinkansola</title>
+<meta name="description" content="Photos and videos of Oyinkansola — share your own to add to the gallery.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">Oyinkansola Yusuf</a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="wishes.html">Wishes</a></li>
+        <li><a href="gallery.html" class="active">Pictures &amp; Videos</a></li>
+        <li><a href="gifts.html">Gifts</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" aria-label="Menu">&#9776;</button>
+  </div>
+</header>
+
+<section style="padding-bottom:70px;">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="eyebrow">Gallery</span>
+      <h2>Moments with her</h2>
+      <p>A growing collection of pictures and videos. Tap any photo to see it larger.</p>
+    </div>
+
+    <div class="gallery-grid reveal" id="gallery-grid">
+      <div class="gallery-item wide" data-lightbox="images/hero-oyin.jpg">
+        <img src="images/hero-oyin.jpg" alt="Oyinkansola">
+      </div>
+      <div class="gallery-item" data-lightbox="images/portrait-oyin.jpg">
+        <img src="images/portrait-oyin.jpg" alt="Oyinkansola portrait">
+      </div>
+      <div class="gallery-item" data-lightbox="images/couple-oyin-olamide.jpg">
+        <img src="images/couple-oyin-olamide.jpg" alt="Oyinkansola and Olamide">
+      </div>
+    </div>
+
+    <div class="upload-cta reveal">
+      <h3 style="margin-bottom:10px;">Have a photo or video with her?</h3>
+      <p style="margin-bottom:24px;">Upload it directly — it'll appear in the gallery above right away.</p>
+      <form id="gallery-upload-form" style="max-width:420px; margin:0 auto; text-align:left;">
+        <div class="field">
+          <label for="gallery-uploader-name">Your Name (optional)</label>
+          <input type="text" id="gallery-uploader-name">
+        </div>
+        <div class="field" style="margin-bottom:0;">
+          <label>Photo</label>
+          <div class="field-file">
+            <span id="gallery-photo-filename">No file chosen</span><br>
+            <input type="file" id="gallery-photo-input" accept="image/*" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-solid" style="width:100%; justify-content:center; margin-top:22px;">Add to Gallery</button>
+      </form>
+      <p class="center" id="gallery-status" style="margin-top:16px; font-size:0.85rem; color:var(--plum-soft);"></p>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close">&times;</button>
+  <img src="" alt="Enlarged view">
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <span class="brand">Oyinkansola Yusuf</span>
+    <ul class="footer-nav">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="wishes.html">Wishes</a></li>
+      <li><a href="gallery.html">Pictures &amp; Videos</a></li>
+      <li><a href="gifts.html">Gifts</a></li>
+    </ul>
+    <p>Made with love, for the 31st of July.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/main.js"></script>
+<script src="js/gallery.js"></script>
+</body>
+</html>
