@@ -54,22 +54,23 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(tick, 1000);
   }
 
-  // Lightbox
+  // Lightbox (event delegation so dynamically-added photos work too)
   var lightbox = document.getElementById('lightbox');
   if (lightbox) {
     var lightboxImg = lightbox.querySelector('img');
-    document.querySelectorAll('[data-lightbox]').forEach(function (item) {
-      item.addEventListener('click', function () {
-        var src = item.getAttribute('data-lightbox');
-        lightboxImg.setAttribute('src', src);
+    document.addEventListener('click', function (e) {
+      var item = e.target.closest ? e.target.closest('[data-lightbox]') : null;
+      if (item) {
+        lightboxImg.setAttribute('src', item.getAttribute('data-lightbox'));
         lightbox.classList.add('open');
-      });
+      }
     });
     lightbox.addEventListener('click', function (e) {
       if (e.target === lightbox || e.target.classList.contains('lightbox-close')) {
         lightbox.classList.remove('open');
         lightboxImg.setAttribute('src', '');
       }
+
     });
   }
 
