@@ -50,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
       e.preventDefault();
       var nameInput = document.getElementById('wish-name');
       var messageInput = document.getElementById('wish-message');
-      var fileInput = document.getElementById('wish-photo-input');
       var submitBtn = form.querySelector('button[type=submit]');
 
       var name = nameInput.value.trim();
@@ -63,33 +62,13 @@ document.addEventListener('DOMContentLoaded', function () {
       statusEl.textContent = '';
 
       try {
-        var photoUrl = null;
-        var file = fileInput.files[0];
-
-        if (file) {
-          if (file.size > 8 * 1024 * 1024) {
-            throw new Error('Photo is too large — please use one under 8MB.');
-          }
-          var ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
-          var path = Date.now() + '-' + Math.random().toString(36).slice(2) + '.' + ext;
-
-          var uploadResult = await supabaseClient.storage.from('wish-photos').upload(path, file);
-          if (uploadResult.error) throw uploadResult.error;
-
-          var urlResult = supabaseClient.storage.from('wish-photos').getPublicUrl(path);
-          photoUrl = urlResult.data.publicUrl;
-        }
-
         var insertResult = await supabaseClient.from('wishes').insert({
           name: name,
-          message: message,
-          photo_url: photoUrl
+          message: message
         });
         if (insertResult.error) throw insertResult.error;
 
         form.reset();
-        var fileLabel = document.getElementById('wish-photo-filename');
-        if (fileLabel) fileLabel.textContent = 'No file chosen';
         statusEl.textContent = 'Thank you — your wish is now on the wall below.';
         loadWishes();
       } catch (err) {

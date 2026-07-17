@@ -89,13 +89,4 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   });
-
-  // Wish photo filename preview
-  var fileInput = document.getElementById('wish-photo-input');
-  var fileLabel = document.getElementById('wish-photo-filename');
-  if (fileInput && fileLabel) {
-    fileInput.addEventListener('change', function () {
-      fileLabel.textContent = fileInput.files.length ? fileInput.files[0].name : 'No file chosen';
-    });
-  }
 });
