@@ -565,3 +565,56 @@ section{ padding: 110px 0; }
   .reveal{ opacity: 1; transform: none; transition: none; }
   .nav-card img, .gallery-item img{ transition: none; }
 }
+
+/* ---------- Music toggle ---------- */
+.music-toggle{
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 300;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--wine);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--gold-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(54,24,38,0.35);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.music-toggle:hover{ transform: scale(1.06); background: var(--wine-deep); }
+.music-toggle svg{ width: 20px; height: 20px; }
+.music-toggle.is-playing .icon-play{ display: none; }
+
+.music-toggle .eq{
+  display: none;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 16px;
+}
+.music-toggle.is-playing .eq{ display: flex; }
+.music-toggle .eq span{
+  width: 3px;
+  background: var(--gold-soft);
+  border-radius: 1px;
+  animation: eq-bounce 0.9s ease-in-out infinite;
+}
+.music-toggle .eq span:nth-child(1){ animation-delay: 0s; }
+.music-toggle .eq span:nth-child(2){ animation-delay: 0.2s; }
+.music-toggle .eq span:nth-child(3){ animation-delay: 0.4s; }
+
+@keyframes eq-bounce{
+  0%, 100% { height: 4px; }
+  50% { height: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .music-toggle .eq span{ animation: none; height: 10px; }
+}
+
+@media (max-width: 480px){
+  .music-toggle{ right: 16px; bottom: 16px; width: 44px; height: 44px; }
+}
