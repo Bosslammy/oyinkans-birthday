@@ -267,6 +267,16 @@ p{ margin: 0 0 1em; }
   color: var(--gold-soft);
 }
 
+@media (max-width: 480px){
+  .hero-content{ padding: 0 20px 48px; }
+  .hero-actions{ gap: 10px; }
+  .hero-actions .btn{ padding: 12px 20px; font-size: 0.7rem; }
+  .countdown{ gap: 0; }
+  .countdown .unit{ padding: 0 10px; }
+  .countdown .num{ font-size: 1.5rem; }
+  .countdown .label{ font-size: 0.56rem; letter-spacing: 0.12em; }
+}
+
 /* ---------- Sections ---------- */
 section{ padding: 110px 0; }
 .section-heading{
