@@ -37,7 +37,8 @@ document.addEventListener('DOMContentLoaded', function () {
       playPromise.catch(function () {
         // Autoplay blocked — wait for the first tap/click anywhere on the page
         setPlayingUI(false);
-        var startOnInteraction = function () {
+        var startOnInteraction = function (e) {
+          if (e.target && e.target.closest && e.target.closest('#music-toggle')) return;
           if (!userMuted) {
             startPlayback().catch(function () {});
           }
