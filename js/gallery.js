@@ -1,9 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
   var grid = document.getElementById('gallery-grid');
+  var viewMoreBtn = document.getElementById('view-more-photos');
   var form = document.getElementById('gallery-upload-form');
   var statusEl = document.getElementById('gallery-status');
   var fileInput = document.getElementById('gallery-photo-input');
   var fileLabel = document.getElementById('gallery-photo-filename');
+
+  var PAGE_SIZE = 9;
+  var visibleCount = PAGE_SIZE;
+
+  // The three original seed photos, always shown first
+  var SEED_PHOTOS = [
+    { url: 'images/hero-oyin.jpg', alt: 'Oyinkansola', wide: true },
+    { url: 'images/portrait-oyin.jpg', alt: 'Oyinkansola portrait' },
+    { url: 'images/couple-oyin-olamide.jpg', alt: 'Oyinkansola and Olamide' }
+  ];
+
+  var allPhotos = SEED_PHOTOS.slice();
 
   if (fileInput && fileLabel) {
     fileInput.addEventListener('change', function () {
@@ -11,21 +24,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  function addGalleryItem(url, prepend) {
-    if (!grid) return;
-    var item = document.createElement('div');
-    item.className = 'gallery-item reveal in';
-    item.setAttribute('data-lightbox', url);
-    item.innerHTML = '<img src="' + url + '" alt="Shared photo" loading="lazy">';
-    if (prepend) {
-      grid.prepend(item);
+  function updateViewMoreButton() {
+    if (!viewMoreBtn) return;
+    var remaining = allPhotos.length - visibleCount;
+    if (remaining <= 0) {
+      viewMoreBtn.style.display = 'none';
     } else {
-      grid.appendChild(item);
+      viewMoreBtn.style.display = 'inline-flex';
+      viewMoreBtn.textContent = 'View More Photos (' + remaining + ' more)';
     }
   }
 
-  async function loadGalleryPhotos() {
+  function renderGrid() {
     if (!grid) return;
+    var toShow = allPhotos.slice(0, visibleCount);
+    grid.innerHTML = toShow.map(function (photo) {
+      var wideClass = photo.wide ? ' wide' : '';
+      var alt = photo.alt || 'Shared photo';
+      return (
+        '<div class="gallery-item' + wideClass + '" data-lightbox="' + photo.url + '">' +
+          '<img src="' + photo.url + '" alt="' + alt.replace(/"/g, '') + '" loading="lazy">' +
+        '</div>'
+      );
+    }).join('');
+    updateViewMoreButton();
+  }
+
+  async function loadGalleryPhotos() {
     try {
       var result = await supabaseClient
         .from('gallery_photos')
@@ -33,11 +58,20 @@ document.addEventListener('DOMContentLoaded', function () {
         .order('created_at', { ascending: false });
       if (result.error) throw result.error;
       (result.data || []).forEach(function (photo) {
-        addGalleryItem(photo.photo_url, false);
+        allPhotos.push({ url: photo.photo_url, alt: 'Shared photo' });
       });
     } catch (err) {
       console.error('Failed to load gallery photos:', err);
+    } finally {
+      renderGrid();
     }
+  }
+
+  if (viewMoreBtn) {
+    viewMoreBtn.addEventListener('click', function () {
+      visibleCount += PAGE_SIZE;
+      renderGrid();
+    });
   }
 
   if (form) {
@@ -74,7 +108,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         if (insertResult.error) throw insertResult.error;
 
-        addGalleryItem(publicUrl, true);
+        allPhotos.splice(SEED_PHOTOS.length, 0, { url: publicUrl, alt: 'Shared photo' });
+        visibleCount += 1;
+        renderGrid();
+
         form.reset();
         fileLabel.textContent = 'No file chosen';
         statusEl.textContent = 'Thank you — your photo has been added to the gallery.';
@@ -88,5 +125,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  renderGrid();
   loadGalleryPhotos();
 });
